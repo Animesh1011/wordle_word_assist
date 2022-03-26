@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+
 
 
 #pip english-words
 
 
-# In[ ]:
+
 
 
 with open(r'C:\Users\USER\Downloads\myfile.txt') as word_file:
     valid_words = set(word_file.read().split())
 
 
-# In[ ]:
+
 
 
 #wordle_word_assists
@@ -86,13 +86,13 @@ def wordle_word_assists(startswith='',endswith='',contain_in_position='',doesnot
     return final_word_list
 
 
-# In[ ]:
+
 
 
 print(wordle_word_assists(length_of_word = 5,contain_not_in_pos='',repetitive_letter='',startswith='',contain_in_position='',endswith='',doesnotinclude=''))
 
 
-# In[ ]:
+
 
 
 
