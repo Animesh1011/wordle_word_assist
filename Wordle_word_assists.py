@@ -1,20 +1,34 @@
 #!/usr/bin/env python
 # coding: utf-8
-#wordle_word_assists
 
-with open(r'C:\Users\USER\Downloads\words_alpha.txt') as word_file:
+# In[ ]:
+
+
+#pip english-words
+
+
+# In[ ]:
+
+
+with open(r'C:\Users\USER\Downloads\myfile.txt') as word_file:
     valid_words = set(word_file.read().split())
 
-def wordle_word_assists(startswith='',second_position='',middle_position='',fourth_position='',endswith='',doesnotinclude='',contain_not_in_pos='',repetitive_letter='',length_of_word=5):
+
+# In[ ]:
+
+
+#wordle_word_assists
+
+def wordle_word_assists(startswith='',endswith='',contain_in_position='',doesnotinclude='',contain_not_in_pos='',repetitive_letter='',length_of_word=5):
     
-    five_word_list = [x for x in valid_words if len(x) == length_of_word]
-    final_word_list = five_word_list
+    final_word_list = [x for x in valid_words if len(x) == length_of_word]
     
     #doesnotinclude
     
     #check if any letter present in other filter.
-    letters_without_number = ''.join(filter(lambda x : not x.isdigit(),contain_not_in_pos))
-    total_input_letters = set(startswith+second_position+middle_position+fourth_position+endswith+letters_without_number)
+    letters_with_number = contain_not_in_pos + contain_in_position + repetitive_letter
+    letters_without_number = ''.join(filter(lambda x : not x.isdigit(),letters_with_number))
+    total_input_letters = set(startswith+endswith+letters_without_number)
     
     for letter in total_input_letters:
         if letter in doesnotinclude:
@@ -49,28 +63,18 @@ def wordle_word_assists(startswith='',second_position='',middle_position='',four
             if word[0]!=startswith:
                 final_word_list.remove(word)
                 
-    #second_position
-    if second_position:
-        for word in final_word_list[:]:
-            if word[1]!=second_position:
-                final_word_list.remove(word)
-                
-    #middle_position
-    if middle_position:
-        for word in final_word_list[:]:
-            if word[2]!=middle_position:
-                final_word_list.remove(word)
-                
-    #fourth_position
-    if fourth_position:
-        for word in final_word_list[:]:
-            if word[3]!=fourth_position:
-                final_word_list.remove(word)
+    #anyposition
+    contain_in_position_list = [(contain_in_position[x],contain_in_position[x+1]) for x in range(0,len(contain_in_position),2)]
+    if contain_in_position_list:
+        for tuples in contain_in_position_list:
+            for word in final_word_list[:]:
+                if word[int(tuples[0])-1]!=tuples[1]:
+                    final_word_list.remove(word)
                 
     #endswith
     if endswith:
         for word in final_word_list[:]:
-            if word[4]!=endswith:
+            if word[-1]!=endswith:
                 final_word_list.remove(word)
                 
     repetitive_list = [(repetitive_letter[x],repetitive_letter[x+1]) for x in range(0,len(repetitive_letter),2)]
@@ -82,7 +86,13 @@ def wordle_word_assists(startswith='',second_position='',middle_position='',four
     return final_word_list
 
 
-print(wordle_word_assists(length_of_word = 5,contain_not_in_pos='',repetitive_letter='',startswith='',second_position='',middle_position='',fourth_position='',endswith='',doesnotinclude=''))
+# In[ ]:
+
+
+print(wordle_word_assists(length_of_word = 5,contain_not_in_pos='',repetitive_letter='',startswith='',contain_in_position='',endswith='',doesnotinclude=''))
+
+
+# In[ ]:
 
 
 
