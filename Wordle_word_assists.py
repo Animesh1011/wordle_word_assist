@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
 with open(r'C:\Users\USER\Downloads\myfile.txt') as word_file:
     valid_words = set(word_file.read().split())
 
