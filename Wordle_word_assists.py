@@ -1,21 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
-
-
-#pip english-words
-
-
-
-
-
 with open(r'C:\Users\USER\Downloads\myfile.txt') as word_file:
     valid_words = set(word_file.read().split())
-
-
-
-
 
 #wordle_word_assists
 
@@ -46,13 +33,13 @@ def wordle_word_assists(startswith='',endswith='',contain_in_position='',doesnot
     if contain_not_in_pos_list:
         include_list = []
         for tuples in contain_not_in_pos_list:
+            include_list.append(tuples[1])
             for word in final_word_list[:]:
                 if word[int(tuples[0])-1]==tuples[1]:
                     final_word_list.remove(word)
-                    if tuples[1] not in include_list:
-                        include_list.append(tuples[1])
+                        
                     
-        for letter in include_list:
+        for letter in set(include_list):
             for word in final_word_list[:]:
                 if letter not in word:
                     final_word_list.remove(word)
@@ -85,15 +72,4 @@ def wordle_word_assists(startswith='',endswith='',contain_in_position='',doesnot
                     final_word_list.remove(word)
     return final_word_list
 
-
-
-
-
-print(wordle_word_assists(length_of_word = 5,contain_not_in_pos='',repetitive_letter='',startswith='',contain_in_position='',endswith='',doesnotinclude=''))
-
-
-
-
-
-
-
+print(wordle_word_assists(length_of_word = 5,contain_not_in_pos='',contain_in_position='',repetitive_letter='',startswith='',endswith='',doesnotinclude=''))
